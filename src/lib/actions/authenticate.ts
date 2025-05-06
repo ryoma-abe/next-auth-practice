@@ -3,8 +3,6 @@
 import { signIn } from "@/auth";
 import { AuthError } from "next-auth";
 
-// ...
-
 export async function authenticate(
   prevState: string | undefined,
   formData: FormData
@@ -13,13 +11,16 @@ export async function authenticate(
     await signIn("credentials", formData);
   } catch (error) {
     if (error instanceof AuthError) {
-      switch (error.type) {
+      const err = error as AuthError & { type?: string };
+
+      switch (err.type) {
         case "CredentialsSignin":
-          return "Invalid credentials.";
+          return "メールアドレスまたはパスワードが正しくありません。";
         default:
-          return "Something went wrong.";
+          return "エラーが発生しました。";
       }
     }
+
     throw error;
   }
 }
