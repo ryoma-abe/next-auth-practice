@@ -11,13 +11,16 @@ export async function authenticate(
     await signIn("credentials", formData);
   } catch (error) {
     if (error instanceof AuthError) {
-      switch (error.type) {
+      const err = error as AuthError & { type?: string };
+
+      switch (err.type) {
         case "CredentialsSignin":
           return "メールアドレスまたはパスワードが正しくありません。";
         default:
           return "エラーが発生しました。";
       }
     }
+
     throw error;
   }
 }
