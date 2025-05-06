@@ -3,8 +3,6 @@
 import { signIn } from "@/auth";
 import { AuthError } from "next-auth";
 
-// ...
-
 export async function authenticate(
   prevState: string | undefined,
   formData: FormData
@@ -15,9 +13,9 @@ export async function authenticate(
     if (error instanceof AuthError) {
       switch (error.type) {
         case "CredentialsSignin":
-          return "Invalid credentials.";
+          return "メールアドレスまたはパスワードが正しくありません。";
         default:
-          return "Something went wrong.";
+          return "エラーが発生しました。";
       }
     }
     throw error;
