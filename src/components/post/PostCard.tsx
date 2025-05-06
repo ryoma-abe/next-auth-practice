@@ -1,5 +1,10 @@
-export default function PostCard() {
+import { PostCardProps } from "@/types/post";
+
+export default function PostCard({ post }: PostCardProps) {
   return (
-    <div>PostCard</div>
-  )
+    <div className="border p-4">
+      <p>{post.author.name}</p>
+      <p>{post.content}</p>
+    </div>
+  );
 }
