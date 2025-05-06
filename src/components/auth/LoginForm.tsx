@@ -14,14 +14,14 @@ export default function LoginForm() {
   return (
     <form action={formAction} className="space-y-3">
       <div className="flex-1 rounded-lg bg-gray-50 px-6 pb-4 pt-8">
-        <h1 className="mb-3 text-2xl">Please log in to continue.</h1>
+        <h1 className="mb-3 text-2xl">ログインして続行してください</h1>
         <div className="w-full">
           <div>
             <label
               className="mb-3 mt-5 block text-xs font-medium text-gray-900"
               htmlFor="email"
             >
-              Email
+              メールアドレス
             </label>
             <div className="relative">
               <input
@@ -29,7 +29,7 @@ export default function LoginForm() {
                 id="email"
                 type="email"
                 name="email"
-                placeholder="Enter your email address"
+                placeholder="メールアドレスを入力してください"
                 required
               />
             </div>
@@ -39,7 +39,7 @@ export default function LoginForm() {
               className="mb-3 mt-5 block text-xs font-medium text-gray-900"
               htmlFor="password"
             >
-              Password
+              パスワード
             </label>
             <div className="relative">
               <input
@@ -47,7 +47,7 @@ export default function LoginForm() {
                 id="password"
                 type="password"
                 name="password"
-                placeholder="Enter password"
+                placeholder="パスワードを入力してください"
                 required
                 minLength={6}
               />
@@ -56,7 +56,7 @@ export default function LoginForm() {
         </div>
         <input type="hidden" name="redirectTo" value={callbackUrl} />
         <button className="mt-4 w-full" aria-disabled={isPending}>
-          Log in
+          ログイン
         </button>
         <div
           className="flex h-8 items-end space-x-1"
