@@ -6,9 +6,11 @@ export default async function Home() {
   return (
     <>
       <div className="container mx-auto">
-        {posts.map((post) => (
-          <PostCard key={post.id} post={post}/>
-        ))}
+        <ul>
+          {posts.map((post) => (
+            <PostCard key={post.id} post={post} />
+          ))}
+        </ul>
       </div>
     </>
   );
