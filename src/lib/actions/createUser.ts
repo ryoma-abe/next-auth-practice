@@ -44,7 +44,7 @@ export async function createUser(
   }
   // DBにメールアドレスが存在しているか
   const existingUser = await prisma.user.findUnique({
-    where: { email: rawFormData.email },
+    where: { email: rowFormDate.email },
   });
   if (existingUser) {
     return handleError({
@@ -53,7 +53,7 @@ export async function createUser(
   }
 
   // DBに登録
-  const hashedPassword = await bcryptjs.hash(rawFormData.password, 12);
+  const hashedPassword = await bcryptjs.hash(rowFormDate.password, 12);
   await prisma.user.create({
     data: {
       name: rowFormDate.name,
