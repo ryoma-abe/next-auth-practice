@@ -1,12 +1,22 @@
 "use client";
+
 import { useActionState } from "react";
 import { createUser } from "@/lib/actions/createUser";
 
 export default function RegisterForm() {
-  const [state, formAction] = useActionState(createUser, {
-    success: false,
-    errors: {},
-  });
+  type RegisterState = {
+    success: boolean;
+    errors: Record<string, string[]>;
+  };
+
+  const [state, formAction] = useActionState<RegisterState, FormData>(
+    createUser,
+    {
+      success: false,
+      errors: {},
+    }
+  );
+
   return (
     <div>
       <form action={formAction}>
@@ -19,8 +29,11 @@ export default function RegisterForm() {
             name="name"
             required
           />
-          {state.errors.name && <p>{state.errors.name.join(",")}</p>}
+          {state.errors.name && (
+            <p className="text-red-500">{state.errors.name.join(", ")}</p>
+          )}
         </div>
+
         <div>
           <label htmlFor="email">メールアドレス</label>
           <input
@@ -30,8 +43,11 @@ export default function RegisterForm() {
             name="email"
             required
           />
-          {state.errors.name && <p>{state.errors.email.join(",")}</p>}
+          {state.errors.email && (
+            <p className="text-red-500">{state.errors.email.join(", ")}</p>
+          )}
         </div>
+
         <div>
           <label htmlFor="password">パスワード</label>
           <input
@@ -41,8 +57,11 @@ export default function RegisterForm() {
             name="password"
             required
           />
-          {state.errors.name && <p>{state.errors.name.join(",")}</p>}
+          {state.errors.password && (
+            <p className="text-red-500">{state.errors.password.join(", ")}</p>
+          )}
         </div>
+
         <div>
           <label htmlFor="confirmPassword">パスワード(確認)</label>
           <input
@@ -52,9 +71,18 @@ export default function RegisterForm() {
             name="confirmPassword"
             required
           />
-          {state.errors.name && <p>{state.errors.name.join(",")}</p>}
+          {state.errors.confirmPassword && (
+            <p className="text-red-500">
+              {state.errors.confirmPassword.join(", ")}
+            </p>
+          )}
         </div>
-        <button type="submit"></button>
+
+        <button type="submit">登録</button>
+
+        {state.success && (
+          <p className="text-green-600 mt-2">登録に成功しました！</p>
+        )}
       </form>
     </div>
   );
