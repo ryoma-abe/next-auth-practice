@@ -1,6 +1,10 @@
 "use server";
 
 import { registerSchema } from "@/validations/user";
+import bcryptjs from "bcryptjs";
+import { prisma } from "@/lib/prisma";
+import { signIn } from "@/auth";
+import { redirect } from "next/navigation";
 
 type ActionState = { success: boolean; errors: Record<string, string[]> };
 
@@ -36,12 +40,32 @@ export async function createUser(
   // バリデーション
   const validationResult = registerSchema.safeParse(rowFormDate);
   if (!validationResult.success) {
-    return;
+    return handleValidationError(validationResult.error);
   }
   // DBにメールアドレスが存在しているか
+  const existingUser = await prisma.user.findUnique({
+    where: { email: rawFormData.email },
+  });
+  if (existingUser) {
+    return handleError({
+      email: ["このメールアドレスはすでに登録されています。"],
+    });
+  }
 
   // DBに登録
+  const hashedPassword = await bcryptjs.hash(rawFormData.password, 12);
+  await prisma.user.create({
+    data: {
+      name: rowFormDate.name,
+      email: rowFormDate.email,
+      password: hashedPassword,
+    },
+  });
 
   // ダッシュボードにリダイレクト
-  return {};
+  await signIn("credentials", {
+    ...Object.fromEntries(formData),
+    redirect: false, // 自動リダイレクトを無効化
+  });
+  redirect("/dashboard");
 }
