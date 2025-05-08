@@ -11,7 +11,7 @@ export async function createUser(
       field,
       formData.get(field) as string,
     ])
-  );
+  ) as Record<string, string>;
   // バリデーション
 
   // DBにメールアドレスが存在しているか
