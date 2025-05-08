@@ -3,8 +3,8 @@ import { Button } from "../ui/button";
 
 export default function PublicHeader() {
   return (
-    <header className="bg-sky-200 px-4 py-6">
-      <div className="flex justify-between">
+    <header className="bg-sky-200 py-6">
+      <div className="flex justify-between container mx-auto px-4">
         <h1 className="text-3xl font-bold">ロゴ</h1>
         <div className="space-x-2">
           <Button asChild>
