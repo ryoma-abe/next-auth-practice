@@ -4,10 +4,18 @@ import { useActionState } from "react";
 import { createUser } from "@/lib/actions/createUser";
 
 export default function RegisterForm() {
-  const [state, formAction] = useActionState(createUser, {
-    success: false,
-    errors: {},
-  });
+  type RegisterState = {
+    success: boolean;
+    errors: Record<string, string[]>;
+  };
+
+  const [state, formAction] = useActionState<RegisterState, FormData>(
+    createUser,
+    {
+      success: false,
+      errors: {},
+    }
+  );
 
   return (
     <div>
