@@ -1,4 +1,7 @@
 "use server";
+
+import { registerSchema } from "@/validations/user";
+
 type ActionState = { success: boolean; errors: Record<string, string[]> };
 
 export async function createUser(
@@ -13,7 +16,9 @@ export async function createUser(
     ])
   ) as Record<string, string>;
   // バリデーション
-
+  const validationResult = registerSchema.safeParse(rowFormDate);
+  if (!validationResult.success) {
+  }
   // DBにメールアドレスが存在しているか
 
   // DBに登録
