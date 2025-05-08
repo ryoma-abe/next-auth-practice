@@ -6,10 +6,7 @@ import { useSearchParams } from "next/navigation";
 export default function LoginForm() {
   const searchParams = useSearchParams();
   const callbackUrl = searchParams.get("callbackUrl") || "/dashboard";
-  const [errorMessage, formAction, isPending] = useActionState(
-    authenticate,
-    undefined
-  );
+  const [errorMessage, formAction] = useActionState(authenticate, undefined);
 
   return (
     <form action={formAction} className="space-y-3">
@@ -55,9 +52,7 @@ export default function LoginForm() {
           </div>
         </div>
         <input type="hidden" name="redirectTo" value={callbackUrl} />
-        <button className="mt-4 w-full" aria-disabled={isPending}>
-          ログイン
-        </button>
+        <button className="mt-4 w-full">ログイン</button>
         <div
           className="flex h-8 items-end space-x-1"
           aria-live="polite"
