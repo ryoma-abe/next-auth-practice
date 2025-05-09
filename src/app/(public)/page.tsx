@@ -5,7 +5,7 @@ export default async function Home() {
   const posts = await getPosts();
   return (
     <div className="container mx-auto mt-10 px-4">
-      <ul className="space-y-2">
+      <ul className="space-y-5">
         {posts.map((post) => (
           <PostCard key={post.id} post={post} />
         ))}
