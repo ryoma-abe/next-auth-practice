@@ -1,4 +1,5 @@
 import { auth } from "@/auth";
+import { Button } from "@/components/ui/button";
 import { getOwnPosts } from "@/lib/ownPost";
 
 export default async function DashboardPage() {
@@ -8,5 +9,27 @@ export default async function DashboardPage() {
     throw new Error("不正なリクエストです");
   }
   const posts = await getOwnPosts(userId);
-  return <div>DashboardPage</div>;
+  return (
+    <div className="p-4">
+      <div>
+        <h1>記事一覧</h1>
+        <Button>新規記事作成</Button>
+      </div>
+      <table className="table-auto w-full border-collapse border">
+        <thead>
+          <tr className="bg-gray-100">
+            <th className="border p-2 text-center">タイトル</th>
+            <th className="border p-2 text-center">表示 / 表示</th>
+            <th className="border p-2 text-center">更新日時</th>
+            <th className="border p-2 text-center">操作</th>
+          </tr>
+        </thead>
+        <tbody>
+          {posts.map((post) => (
+            <tr key={post.id}></tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  );
 }
