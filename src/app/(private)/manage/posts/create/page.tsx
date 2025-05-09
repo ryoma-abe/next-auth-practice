@@ -58,6 +58,7 @@ export default function CreatePage() {
             </ReactMarkdown>
           </div>
         )}
+        <button type="submit">投稿する</button>
       </form>
     </div>
   );
