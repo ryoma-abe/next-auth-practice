@@ -1,5 +1,5 @@
 "use client";
-import { useState, useActionState } from "react";
+import { useState } from "react";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import rehypeHighlight from "rehype-highlight";
@@ -9,6 +9,7 @@ import "highlight.js/styles/github.css"; // コードハイライト用のスタ
 export default function CreatePage() {
   const [content, setContent] = useState("");
   const [contentLength, setContentLength] = useState(0);
+  const [preview, setPreview] = useState(false);
   const handleContentChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     const value = e.target.value;
     setContent(value);
@@ -40,6 +41,23 @@ export default function CreatePage() {
           />
         </div>
         <div className="text-right">文字数：{contentLength}</div>
+        <div>
+          <button type="button" onClick={() => setPreview(!preview)}>
+            {preview ? "プレビューを閉じる" : "プレビューを表示"}
+          </button>
+        </div>
+        {preview && (
+          <div className="border p-4 bg-gray-50 prose">
+            <ReactMarkdown
+              remarkPlugins={[remarkGfm]}
+              rehypePlugins={[rehypeHighlight]}
+              skipHtml={false}
+              unwrapDisallowed={true}
+            >
+              {content}
+            </ReactMarkdown>
+          </div>
+        )}
       </form>
     </div>
   );
