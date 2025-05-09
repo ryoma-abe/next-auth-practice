@@ -2,6 +2,7 @@ import { auth } from "@/auth";
 import PostDropdownMenu from "@/components/post/PostDropdownMenu";
 import { Button } from "@/components/ui/button";
 import { getOwnPosts } from "@/lib/ownPost";
+import Link from "next/link";
 
 export default async function DashboardPage() {
   const session = await auth();
@@ -14,7 +15,9 @@ export default async function DashboardPage() {
     <div className="p-4">
       <div>
         <h1>記事一覧</h1>
-        <Button>新規記事作成</Button>
+        <Button>
+          <Link href="/manage/posts/create">新規記事作成</Link>
+        </Button>
       </div>
       <table className="table-auto w-full border-collapse border">
         <thead>
