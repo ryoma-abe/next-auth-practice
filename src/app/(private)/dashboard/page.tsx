@@ -1,4 +1,5 @@
 import { auth } from "@/auth";
+import PostDropdownMenu from "@/components/post/PostDropdownMenu";
 import { Button } from "@/components/ui/button";
 import { getOwnPosts } from "@/lib/ownPost";
 
@@ -35,7 +36,7 @@ export default async function DashboardPage() {
                 {new Date(post.updatedAt).toLocaleString()}
               </td>
               <td className="border p-2 text-center">
-                {/* ここにドロップダウンを入れます */}
+                <PostDropdownMenu postId={post.id} />
               </td>
             </tr>
           ))}
