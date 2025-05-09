@@ -26,7 +26,18 @@ export default async function DashboardPage() {
         </thead>
         <tbody>
           {posts.map((post) => (
-            <tr key={post.id}></tr>
+            <tr key={post.id}>
+              <td className="border p-2">{post.title}</td>
+              <td className="border p-2 text-center">
+                {post.published ? "表示" : "非表示"}
+              </td>
+              <td className="border p-2 text-center">
+                {new Date(post.updatedAt).toLocaleString()}
+              </td>
+              <td className="border p-2 text-center">
+                {/* ここにドロップダウンを入れます */}
+              </td>
+            </tr>
           ))}
         </tbody>
       </table>
