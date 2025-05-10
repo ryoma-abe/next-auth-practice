@@ -7,7 +7,7 @@ import { redirect } from "next/navigation";
 
 type ActionState = { success: boolean; errors: Record<string, string[]> };
 
-export default async function createPost(
+export async function createPost(
   prevState: ActionState,
   formData: FormData
 ): Promise<ActionState> {
