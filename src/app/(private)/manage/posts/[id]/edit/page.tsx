@@ -19,8 +19,5 @@ export default async function EditPage({ params }: Params) {
   if (!post) {
     notFound();
   }
-  return <EditPostForm />;
-}
-{
-  /* post=post */
+  return <EditPostForm post={post}/>;
 }
