@@ -26,7 +26,7 @@ export async function createPost(
     };
   }
   // 画像保存
-  const imageUrl = topImage ? saveImage(topImage) : null;
+  const imageUrl = topImage ? await saveImage(topImage) : null;
   if (imageUrl && !imageUrl) {
     return {
       success: false,
