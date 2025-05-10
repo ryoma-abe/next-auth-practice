@@ -93,7 +93,7 @@ export default function EditPostForm({ post }: EditPostFormProps) {
             </ReactMarkdown>
           </div>
         )}
-        <button type="submit">投稿する</button>
+        <button type="submit">更新する</button>
 
         <input type="hidden" name="postId" value={post.id} />
         <input type="hidden" name="oldImageUrl" value={post.topImage || ""} />
