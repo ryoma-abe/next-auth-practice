@@ -18,10 +18,14 @@ type EditPostFormProps = {
 };
 // タ
 
-export default function EditPostForm({post}:EditPostFormProps) {
-  const [content, setContent] = useState("");
+export default function EditPostForm({ post }: EditPostFormProps) {
   const [contentLength, setContentLength] = useState(0);
   const [preview, setPreview] = useState(false);
+  const [title, setTitle] = useState(post.title);
+  const [content, setContent] = useState(post.content);
+  const [published, setPublished] = useState(post.published);
+  const [imagePreview, setImagePreview] = useState(post.topImage);
+
   const [state, formAction] = useActionState(createPost, {
     success: false,
     errors: {},
@@ -42,6 +46,8 @@ export default function EditPostForm({post}:EditPostFormProps) {
             id="title"
             name="title"
             placeholder="タイトルを入力してください"
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
           />
           {state.errors.title && (
             <p className="text-red-500">{state.errors.title.join(", ")}</p>
@@ -88,6 +94,9 @@ export default function EditPostForm({post}:EditPostFormProps) {
           </div>
         )}
         <button type="submit">投稿する</button>
+
+        <input type="hidden" name="postId" value={post.id} />
+        <input type="hidden" name="oldImageUrl" value={post.topImage || ""} />
       </form>
     </div>
   );
