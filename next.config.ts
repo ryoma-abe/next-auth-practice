@@ -9,5 +9,10 @@ const nextConfig: NextConfig = {
       },
     ],
   },
+  experimental: {
+    serverActions: {
+      bodySizeLimit: "5mb", // 必要に応じて値を変更
+    },
+  },
 };
 export default nextConfig;
