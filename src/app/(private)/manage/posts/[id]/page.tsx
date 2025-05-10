@@ -25,13 +25,14 @@ export default async function ShowPage({ params }: Params) {
     <div>
       <Card>
         {post.topImage && (
-          <div className="relative">
+          <div className="relative w-full h-64 lg:h-96">
             <Image
               src={post.topImage}
               alt={post.title}
               fill
               sizes="100vw"
               priority
+              className="object-cover"
             />
           </div>
         )}
