@@ -18,7 +18,7 @@ type EditPostFormProps = {
 };
 // タ
 
-export default function EditPostForm() {
+export default function EditPostForm({post}:EditPostFormProps) {
   const [content, setContent] = useState("");
   const [contentLength, setContentLength] = useState(0);
   const [preview, setPreview] = useState(false);
