@@ -5,6 +5,10 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { getOwnPost } from "@/lib/ownPost";
 import Image from "next/image";
 import { notFound } from "next/navigation";
+import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
+import rehypeHighlight from "rehype-highlight";
+import "highlight.js/styles/github.css"; // コードハイライト用のスタイル
 
 type Params = {
   params: Promise<{ id: string }>;
@@ -47,7 +51,18 @@ export default async function ShowPage({ params }: Params) {
           </div>
         </CardHeader>
         <CardTitle>{post.title}</CardTitle>
-        <CardContent>{post.content}</CardContent>
+        <CardContent>
+          <div className="border p-4 prose">
+            <ReactMarkdown
+              remarkPlugins={[remarkGfm]}
+              rehypePlugins={[rehypeHighlight]}
+              skipHtml={false}
+              unwrapDisallowed={true}
+            >
+              {post.content}
+            </ReactMarkdown>
+          </div>
+        </CardContent>
       </Card>
     </div>
   );
