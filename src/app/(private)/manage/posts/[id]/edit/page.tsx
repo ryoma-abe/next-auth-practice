@@ -1,6 +1,7 @@
 import { auth } from "@/auth";
 import { getOwnPost } from "@/lib/ownPost";
 import { notFound } from "next/navigation";
+import EditPostForm from "./EditPostForm";
 
 type Params = {
   params: Promise<{ id: string }>;
@@ -18,5 +19,8 @@ export default async function EditPage({ params }: Params) {
   if (!post) {
     notFound();
   }
-  return <div>EditPage</div>;
+  return <EditPostForm />;
+}
+{
+  /* post=post */
 }
