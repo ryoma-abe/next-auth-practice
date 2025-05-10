@@ -29,6 +29,10 @@ export default function CreatePage() {
           />
         </div>
         <div>
+          <label htmlFor="topImage">トップ画像</label>
+          <input type="file" id="topImage" accept="image/*" name="topImage" />
+        </div>
+        <div>
           <label htmlFor="content">内容（Markdown）</label>
           <TextareaAutosize
             id="content"
