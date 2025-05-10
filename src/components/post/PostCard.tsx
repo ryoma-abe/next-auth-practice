@@ -9,18 +9,16 @@ export default function PostCard({ post }: PostCardProps) {
     <li className="border p-4">
       <Link href={`/post/${post.id}`}>
         <p>{post.author.name}</p>
-        <p>
-          <div className="border p-4 prose">
-            <ReactMarkdown
-              remarkPlugins={[remarkGfm]}
-              rehypePlugins={[rehypeHighlight]}
-              skipHtml={false}
-              unwrapDisallowed={true}
-            >
-              {post.content}
-            </ReactMarkdown>
-          </div>
-        </p>
+        <div className="border p-4 prose">
+          <ReactMarkdown
+            remarkPlugins={[remarkGfm]}
+            rehypePlugins={[rehypeHighlight]}
+            skipHtml={false}
+            unwrapDisallowed={true}
+          >
+            {post.content}
+          </ReactMarkdown>
+        </div>
       </Link>
     </li>
   );
