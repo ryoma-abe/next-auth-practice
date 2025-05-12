@@ -1,5 +1,4 @@
 "use server";
-import { auth } from "@/auth";
 import { saveImage } from "@/utils/image";
 import { postSchema } from "@/validations/post";
 import { prisma } from "../prisma";
@@ -7,7 +6,7 @@ import { redirect } from "next/navigation";
 
 type ActionState = { success: boolean; errors: Record<string, string[]> };
 
-export async function createPost(
+export async function updatePost(
   prevState: ActionState,
   formData: FormData
 ): Promise<ActionState> {
@@ -16,6 +15,9 @@ export async function createPost(
   const content = formData.get("content") as string;
   const topImageInput = formData.get("topImage");
   const topImage = topImageInput instanceof File ? topImageInput : null;
+  const postId = formData.get("postId") as string;
+  const published = formData.get("published") === "true";
+  const oldImageUrl = formData.get("oldImageUrl") as string;
 
   // バリデーション
   const validationResult = postSchema.safeParse({ title, content, topImage });
@@ -26,28 +28,32 @@ export async function createPost(
     };
   }
   // 画像保存
-  const imageUrl = topImage ? await saveImage(topImage) : null;
-  if (imageUrl && !imageUrl) {
-    return {
-      success: false,
-      errors: {
-        image: ["画像の保存に失敗しました。"],
-      },
-    };
+  let imageUrl = oldImageUrl;
+  if (
+    topImage instanceof File &&
+    topImage.size > 0 &&
+    topImage.name !== undefined
+  ) {
+    const NewImageUrl = await saveImage(topImage);
+    if (!NewImageUrl) {
+      return {
+        success: false,
+        errors: {
+          image: ["画像の保存に失敗しました。"],
+        },
+      };
+    }
+    imageUrl = NewImageUrl;
   }
-  // DB登録
-  const session = await auth();
-  const userId = session?.user?.id;
-  if (!session?.user?.email || !userId) {
-    throw new Error("不正なリクエストです");
-  }
-  await prisma.post.create({
+
+  // DB更新
+  await prisma.post.update({
+    where: { id: postId },
     data: {
       title,
       content,
+      published,
       topImage: imageUrl,
-      published: true,
-      authorId: userId,
     },
   });
   redirect("/dashboard");
