@@ -6,6 +6,7 @@ import rehypeHighlight from "rehype-highlight";
 import TextareaAutosize from "react-textarea-autosize";
 import "highlight.js/styles/github.css"; // コードハイライト用のスタイル
 import { createPost } from "@/lib/actions/createPost";
+import Image from "next/image";
 
 type EditPostFormProps = {
   post: {
@@ -71,7 +72,22 @@ export default function EditPostForm({ post }: EditPostFormProps) {
         </div>
         <div>
           <label htmlFor="topImage">トップ画像</label>
-          <input type="file" id="topImage" accept="image/*" name="topImage" />
+          <input
+            type="file"
+            id="topImage"
+            accept="image/*"
+            name="topImage"
+            onChange={handleImageChange}
+          />
+          {imagePreview && (
+            <Image
+              src={imagePreview}
+              alt={post.title}
+              width={200}
+              height={200}
+              className="object-cover"
+            />
+          )}
           {state.errors.topImage && (
             <p className="text-red-500">{state.errors.topImage.join(", ")}</p>
           )}
