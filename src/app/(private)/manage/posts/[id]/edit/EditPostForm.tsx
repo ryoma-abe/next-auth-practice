@@ -35,6 +35,13 @@ export default function EditPostForm({ post }: EditPostFormProps) {
     setContent(value);
     setContentLength(value.length);
   };
+
+  const handleImageChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      const previewUrl = URL.createObjectURL(file);
+    }
+  };
   return (
     <div className="container mx-auto">
       <h1 className="text-2xl font-bold">新規記事投稿（Markdown対応）</h1>
