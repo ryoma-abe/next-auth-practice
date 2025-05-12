@@ -7,6 +7,8 @@ import TextareaAutosize from "react-textarea-autosize";
 import "highlight.js/styles/github.css"; // コードハイライト用のスタイル
 import { createPost } from "@/lib/actions/createPost";
 import Image from "next/image";
+import { Label } from "@/components/ui/label";
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 
 type EditPostFormProps = {
   post: {
@@ -125,6 +127,21 @@ export default function EditPostForm({ post }: EditPostFormProps) {
             </ReactMarkdown>
           </div>
         )}
+        <RadioGroup
+          value={published.toString()}
+          name="published"
+          onValueChange={(value) => setPublished(value === "true")}
+        >
+          <div className="flex items-center space-x-2">
+            <RadioGroupItem value="true" id="published-one" />
+            <Label htmlFor="published-one">表示</Label>
+          </div>
+          <div className="flex items-center space-x-2">
+            <RadioGroupItem value="false" id="published-two" />
+            <Label htmlFor="published-two">非表示</Label>
+          </div>
+        </RadioGroup>
+
         <button type="submit">更新する</button>
 
         <input type="hidden" name="postId" value={post.id} />
