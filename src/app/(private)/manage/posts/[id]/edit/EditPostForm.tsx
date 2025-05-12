@@ -1,5 +1,5 @@
 "use client";
-import { useActionState, useState } from "react";
+import { useActionState, useEffect, useState } from "react";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import rehypeHighlight from "rehype-highlight";
@@ -40,8 +40,17 @@ export default function EditPostForm({ post }: EditPostFormProps) {
     const file = e.target.files?.[0];
     if (file) {
       const previewUrl = URL.createObjectURL(file);
+      setImagePreview(previewUrl);
     }
   };
+
+  useEffect(() => {
+    return () => {
+      if (imagePreview && imagePreview != post.topImage) {
+        URL.revokeObjectURL(imagePreview);
+      }
+    };
+  }, [imagePreview, post.topImage]);
   return (
     <div className="container mx-auto">
       <h1 className="text-2xl font-bold">新規記事投稿（Markdown対応）</h1>
