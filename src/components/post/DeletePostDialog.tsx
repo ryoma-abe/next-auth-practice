@@ -8,6 +8,7 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
+import { deletePost } from "@/lib/actions/deletePost";
 
 type DeletePostProps = {
   postId: string;
@@ -33,7 +34,7 @@ export default function DeletePostDialog({
         </AlertDialogHeader>
         <AlertDialogFooter>
           <AlertDialogCancel>キャンセル</AlertDialogCancel>
-          <AlertDialogAction onClick={() => deleatPost(postId)}>
+          <AlertDialogAction onClick={() => deletePost(postId)}>
             削除する
           </AlertDialogAction>
         </AlertDialogFooter>
