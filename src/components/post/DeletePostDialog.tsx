@@ -22,19 +22,21 @@ export default function DeletePostDialog({
   onOpenChange,
 }: DeletePostProps) {
   return (
-    <AlertDialog>
-      <AlertDialogTrigger>Open</AlertDialogTrigger>
+    <AlertDialog open={isOpen} onOpenChange={onOpenChange}>
       <AlertDialogContent>
         <AlertDialogHeader>
-          <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
+          <AlertDialogTitle>記事の削除</AlertDialogTitle>
           <AlertDialogDescription>
-            This action cannot be undone. This will permanently delete your
-            account and remove your data from our servers.
+            この記事を削除してもよろしいですか？
+            <br />
+            この操作は取り消せません
           </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>
-          <AlertDialogCancel>Cancel</AlertDialogCancel>
-          <AlertDialogAction>Continue</AlertDialogAction>
+          <AlertDialogCancel>キャンセル</AlertDialogCancel>
+          <AlertDialogAction onClick={() => deleatPost(postId)}>
+            削除する
+          </AlertDialogAction>
         </AlertDialogFooter>
       </AlertDialogContent>
     </AlertDialog>
