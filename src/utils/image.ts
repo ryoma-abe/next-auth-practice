@@ -1,4 +1,5 @@
 import { writeFile } from "fs/promises";
+import { supabase } from "@/lib/supabase";
 import path from "path";
 
 export async function saveImage(file: File): Promise<string | null> {
@@ -11,6 +12,8 @@ export async function saveImage(file: File): Promise<string | null> {
     await writeFile(fillPass, buffer);
     return `/images/${fileName}`;
   } catch (error) {
+    console.error("画像保存エラー", error);
+
     return null;
   }
 }
