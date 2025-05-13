@@ -41,6 +41,13 @@ export async function createPost(
   if (!session?.user?.email || !userId) {
     throw new Error("不正なリクエストです");
   }
+  // ユーザーの存在を確認
+  const userExists = await prisma.user.findUnique({
+    where: { id: userId },
+  });
+  if (!userExists) {
+    throw new Error("ユーザーが存在しません");
+  }
   await prisma.post.create({
     data: {
       title,
